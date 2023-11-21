@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ububtu-latest
+    runs-on: ubuntu-latest
     env:
       BUCKET_NAME: cfst-3457-bd527f604e601862abc067f0cc-nonprodbucket-8vhhfnqtyn9m
     steps:
