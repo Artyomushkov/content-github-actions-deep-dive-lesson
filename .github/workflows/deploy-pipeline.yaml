@@ -50,12 +50,29 @@ jobs:
     needs: build
     steps:
       - name: Create release
+        id: create-release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.run_number }}
           release_name: Releae from ${{ github.run_number }}
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: zipped-bundle
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.output.upload_url }}
+          asset_path: ./${{ github_sha }}.zip
+          asset_name: source_code.zip
+          asset_content_type: application/zip
+          
+          
+          
           
       
   
